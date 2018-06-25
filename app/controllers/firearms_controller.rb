@@ -3,18 +3,26 @@ class FirearmsController < ApplicationController
 
   # GET: /firearms
   get "/firearms" do
-    @user = current_user
-    if @user.firearms.count == 0
-      redirect 'firearms/new'
+    if logged_in?
+      @user = current_user
+      if @user.firearms.count == 0
+        redirect 'firearms/new'
+      else
+        @firearms = @user.firearms.all
+        erb :"/firearms/index"
+      end
     else
-      @firearms = @user.firearms.all
-      erb :"/firearms/index"
+      redirect '/login'
     end
   end
 
   # GET: /firearms/new
   get "/firearms/new" do
-    erb :"/firearms/new"
+    if logged_in?
+      erb :"/firearms/new"
+    else
+      redirect '/login'
+    end
   end
 
   # POST: /firearms
@@ -33,12 +41,22 @@ class FirearmsController < ApplicationController
 
   # GET: /firearms/5
   get "/firearms/:id" do
-    erb :"/firearms/show"
+    if logged_in?
+      @firearm = Firearm.find_by_id(params[:id])
+      erb :"/firearms/show"
+    else
+      redirect '/login'
+    end
   end
 
   # GET: /firearms/5/edit
   get "/firearms/:id/edit" do
-    erb :"/firearms/edit"
+    if logged_in?
+      @firearm = Firearm.find_by_id(params[:id])
+      erb :"/firearms/edit"
+    else
+      redirect '/login'
+    end
   end
 
   # PATCH: /firearms/5
@@ -48,6 +66,12 @@ class FirearmsController < ApplicationController
 
   # DELETE: /firearms/5/delete
   delete "/firearms/:id/delete" do
-    redirect "/firearms"
+    @firearm = Firearm.find_by_id(params[:id])
+    if logged_in? && current_user.id == @firearm.user_id
+      @firearm.delete
+      redirect '/firearms'
+    else
+      redirect '/firearms'
+    end
   end
 end

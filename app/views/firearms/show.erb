@@ -1,1 +1,13 @@
-<h1>This is the show page for an individual firearm</h1>
+<h1><%="#{@firearm.make} #{@firearm.model}"%></h1>
+
+<ul>
+  <li>Caliber: <%= @firearm.caliber %></li>
+  <li>Serial Number: <%= @firearm.serial_number %></li>
+  <li>Purchase Date: <%= @firearm.purchase_date %></li>
+  <li>Price: $<%= @firearm.price %></li>
+</ul>
+
+<form method="post" action="/firearms/<%= @firearm.id %>/delete">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete This Firearm">
+</form>
