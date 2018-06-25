@@ -26,6 +26,7 @@ class FirearmsController < ApplicationController
   end
 
   # POST: /firearms
+  #Instantiates new Firearm object from params, clicking "Add Another" button in form reloads empty "new" form
   post "/firearms" do
     if !params[:firearm].empty?
       @firearm = Firearm.new(params[:firearm])
@@ -61,7 +62,13 @@ class FirearmsController < ApplicationController
 
   # PATCH: /firearms/5
   patch "/firearms/:id" do
-    redirect "/firearms/:id"
+    @firearm = Firearm.find_by_id(params[:id])
+    if !params[:firearm].empty?
+      @firearm.update(params[:firearm])
+    else
+      redirect "/firearms/#{@firearm.id}/edit"
+    end
+    redirect "/firearms/#{@firearm.id}"
   end
 
   # DELETE: /firearms/5/delete

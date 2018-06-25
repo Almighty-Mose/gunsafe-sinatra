@@ -7,6 +7,14 @@
   <li>Price: $<%= @firearm.price %></li>
 </ul>
 
+<br>
+
+<form method="get" action="/firearms/<%= @firearm.id %>/edit">
+  <input type="submit" value="Edit This Firearm">
+</form>
+
+<br>
+
 <form method="post" action="/firearms/<%= @firearm.id %>/delete">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete This Firearm">

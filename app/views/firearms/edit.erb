@@ -1,1 +1,19 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h1>Edit Firearm</h1>
+<div>
+  <form method="post" action="/firearms/<%=@firearm.id%>">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <p><label for="make">Make: </label>
+    <input type="text" name="firearm[make]" value="<%= @firearm.make %>"></p>
+    <p><label for="model">Model: </label>
+    <input type="text" name="firearm[model]" value="<%= @firearm.model %>"></p>
+    <p><label for="caliber">Caliber: </label>
+    <input type="text" name="firearm[caliber]" value="<%= @firearm.caliber %>"></p>
+    <p><label for="serial_number">Serial Number: </label>
+    <input type="text" name="firearm[serial_number]" value="<%= @firearm.serial_number %>"></p>
+    <p><label for="purchase_date">Purchase Date: </label>
+    <input type="text" name="firearm[purchase_date]" value="<%= @firearm.purchase_date %>"></p>
+    <p><label for="price">Price: </label>
+    <input type="text" name="firearm[price]" value="<%= @firearm.price %>"></p>
+    <input type="submit" value="Edit">
+  </form>
+</div>
