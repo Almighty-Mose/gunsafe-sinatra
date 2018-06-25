@@ -1,3 +1,4 @@
+require 'pry'
 class UsersController < ApplicationController
 
   #shows a User's homepage
@@ -39,7 +40,9 @@ class UsersController < ApplicationController
   #takes the info from login.erb, authenticates and logs in
   post '/login' do
     @user = User.find_by(username: params[:username])
+    binding.pry
     if @user != nil && @user.authenticate(params[:password])
+      binding.pry
       session[:user_id] = @user.id
       redirect '/firearms'
     else
@@ -55,6 +58,10 @@ class UsersController < ApplicationController
     else
       redirect '/'
     end
+  end
+
+  post '/logout' do
+    redirect '/logout'
   end
 end
 

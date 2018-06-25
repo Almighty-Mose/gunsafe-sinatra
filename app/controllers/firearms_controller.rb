@@ -1,8 +1,14 @@
+require 'pry'
 class FirearmsController < ApplicationController
 
   # GET: /firearms
   get "/firearms" do
-    erb :"/firearms/index.html"
+    if current_user.firearms.count == 0
+      redirect 'firearms/new'
+    else
+      @firearms = current_user.firearms.all
+      erb :"/firearms/index.html"
+    end
   end
 
   # GET: /firearms/new
