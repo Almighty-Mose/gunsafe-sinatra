@@ -19,9 +19,11 @@ class FirearmsController < ApplicationController
 
   # POST: /firearms
   post "/firearms" do
-    @firearm = Firearm.new(params[:firearm])
-    @firearm.user_id = current_user.id
-    @firearm.save
+    if !params[:firearm].empty?
+      @firearm = Firearm.new(params[:firearm])
+      @firearm.user_id = current_user.id
+      @firearm.save
+    end
     if params[:commit] == "Add Another"
       redirect '/firearms/new'
     else
