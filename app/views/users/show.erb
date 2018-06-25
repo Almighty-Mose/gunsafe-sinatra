@@ -1,7 +1,10 @@
-<h1>This is the show page for an individual user. Will have a link to firearms/index</h1>
-<p>This will also be where a user can update their profile info.</p>
-
 <h1><%= @user.username %>'s Profile</h1>
+
+<br>
+
+<h3><a href="/firearms">Your Firearms</a></h3>
+
+<br>
 
 <form method="post" action="/logout">
 <input type="submit" value="Logout">

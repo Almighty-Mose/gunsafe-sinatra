@@ -1,1 +1,19 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<h1>Add A Firearm To Your List</h1>
+<div>
+  <form method="post" action="/firearms">
+    <p><label for="make">Make: </label>
+    <input type="text" name="firearm[make]"></p>
+    <p><label for="model">Model: </label>
+    <input type="text" name="firearm[model]"></p>
+    <p><label for="caliber">Caliber: </label>
+    <input type="text" name="firearm[caliber]"></p>
+    <p><label for="serial_number">Serial Number: </label>
+    <input type="text" name="firearm[serial_number]"></p>
+    <p><label for="purchase_date">Purchase Date: </label>
+    <input type="text" name="firearm[purchase_date]" placeholder="MM/DD/YYYY"></p>
+    <p><label for="price">Price: </label>
+    <input type="text" name="firearm[price]"></p>
+    <p><input type="submit" name="commit" value="Add Another">
+      <input type="submit" name="commit" value="Done"></p>
+  </form>
+</div>

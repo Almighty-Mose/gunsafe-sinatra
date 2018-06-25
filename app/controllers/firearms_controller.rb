@@ -3,32 +3,40 @@ class FirearmsController < ApplicationController
 
   # GET: /firearms
   get "/firearms" do
-    if current_user.firearms.count == 0
+    @user = current_user
+    if @user.firearms.count == 0
       redirect 'firearms/new'
     else
-      @firearms = current_user.firearms.all
-      erb :"/firearms/index.html"
+      @firearms = @user.firearms.all
+      erb :"/firearms/index"
     end
   end
 
   # GET: /firearms/new
   get "/firearms/new" do
-    erb :"/firearms/new.html"
+    erb :"/firearms/new"
   end
 
   # POST: /firearms
   post "/firearms" do
-    redirect "/firearms"
+    @firearm = Firearm.new(params[:firearm])
+    @firearm.user_id = current_user.id
+    @firearm.save
+    if params[:commit] == "Add Another"
+      redirect '/firearms/new'
+    else
+      redirect "/firearms"
+    end
   end
 
   # GET: /firearms/5
   get "/firearms/:id" do
-    erb :"/firearms/show.html"
+    erb :"/firearms/show"
   end
 
   # GET: /firearms/5/edit
   get "/firearms/:id/edit" do
-    erb :"/firearms/edit.html"
+    erb :"/firearms/edit"
   end
 
   # PATCH: /firearms/5
