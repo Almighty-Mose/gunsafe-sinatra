@@ -3,8 +3,12 @@ class UsersController < ApplicationController
 
   #shows a User's homepage
   get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'users/show'
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      erb :'users/show'
+    else
+      redirect '/login'
+    end
   end
 
   #checks for existing user, then signs up new user
@@ -56,10 +60,6 @@ class UsersController < ApplicationController
     else
       redirect '/'
     end
-  end
-
-  post '/logout' do
-    redirect '/logout'
   end
 end
 
