@@ -7,3 +7,9 @@
   <li><a href="firearms/<%=firearm.id%>"><%= "#{firearm.make} #{firearm.model}"%></a></li>
   <% end %>
 </ul>
+
+<br>
+  
+<form method="get" action="/firearms/new">
+<input type="submit" value="Add A New Firearm">
+</form>
