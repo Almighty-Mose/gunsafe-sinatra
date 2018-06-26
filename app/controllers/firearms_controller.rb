@@ -41,8 +41,8 @@ class FirearmsController < ApplicationController
 
   # GET: /firearms/5
   get "/firearms/:id" do
-    if logged_in?
-      @firearm = Firearm.find_by_id(params[:id])
+    @firearm = Firearm.find_by_id(params[:id])
+    if logged_in? && @firearm.user_id == session[:user_id]
       erb :"/firearms/show"
     else
       redirect '/login'
@@ -51,8 +51,8 @@ class FirearmsController < ApplicationController
 
   # GET: /firearms/5/edit
   get "/firearms/:id/edit" do
-    if logged_in?
-      @firearm = Firearm.find_by_id(params[:id])
+    @firearm = Firearm.find_by_id(params[:id])
+    if logged_in? && @firearm.user_id == session[:user_id]
       erb :"/firearms/edit"
     else
       redirect '/login'
