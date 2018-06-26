@@ -31,8 +31,12 @@ class UsersController < ApplicationController
   #takes info from signup.erb, creates a new User instance and persists to database, logs in new user
   post '/signup' do
     if !params[:username].empty? && !params[:email].empty? && !params[:password].empty?
-      @user = User.create(params)
-      session[:user_id] = @user.id
+      if User.find_by(username: params[:username]) == nil
+        @user = User.create(params)
+        session[:user_id] = @user.id
+      else
+        redirect'/signup'
+      end
     else
       redirect '/signup'
     end
