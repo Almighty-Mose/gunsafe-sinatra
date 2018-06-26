@@ -1,4 +1,3 @@
-require 'pry'
 class FirearmsController < ApplicationController
 
   # GET: /firearms

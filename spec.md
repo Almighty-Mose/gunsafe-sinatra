@@ -11,7 +11,7 @@ Specs:
 - [x] Ensure that the belongs_to resource has routes for Creating, Reading, Updating and Destroying (Firearms have all 7 RESTful routes)
 - [x] Include user input validations (User must sign up with username, email, and password)
 - [ ] Display validation failures to user with error message (example form URL e.g. /posts/new)
-- [ ] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
+- [x] Your README.md includes a short description, install instructions, a contributors guide and a link to the license for your code
 
 Confirms
 - [x] You have a large number of small Git commits

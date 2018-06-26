@@ -1,4 +1,3 @@
-require 'pry'
 class UsersController < ApplicationController
 
   #shows a User's homepage
@@ -37,7 +36,6 @@ class UsersController < ApplicationController
     else
       redirect '/signup'
     end
-
     redirect '/firearms'
   end
 
