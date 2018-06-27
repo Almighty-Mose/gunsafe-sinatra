@@ -73,10 +73,10 @@ class FirearmsController < ApplicationController
   # PATCH: /firearms/5
   patch "/firearms/:id" do
     @firearm = Firearm.find_by_id(params[:id])
-    if !params[:firearm].empty?
+    if !params[:firearm][:make].empty? && !params[:firearm][:model].empty?
       @firearm.update(params[:firearm])
     else
-      flash[:message] = "All Fields Are Required"
+      flash[:message] = "Make and Model Are Required"
       redirect "/firearms/#{@firearm.id}/edit"
     end
     flash[:message] = "Firearm Updated"

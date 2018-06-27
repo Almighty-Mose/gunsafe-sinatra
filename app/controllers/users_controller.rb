@@ -5,9 +5,12 @@ class UsersController < ApplicationController
 
   #shows a User's homepage
   get '/users/:slug' do
-    if logged_in?
-      @user = User.find_by_slug(params[:slug])
+    @user = User.find_by_slug(params[:slug])
+    if logged_in? && current_user.id == @user.id
       erb :'users/show'
+    elsif logged_in? && current_user != @user.id
+      flash[:message] = "You Do Not Have Permission to View This User"
+      redirect '/firearms'
     else
       flash[:message] = "Please Log In To Continue"
       redirect '/login'
