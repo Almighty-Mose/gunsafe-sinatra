@@ -1,4 +1,7 @@
+require 'rack-flash'
+
 class UsersController < ApplicationController
+  use Rack::Flash
 
   #shows a User's homepage
   get '/users/:slug' do
@@ -6,6 +9,7 @@ class UsersController < ApplicationController
       @user = User.find_by_slug(params[:slug])
       erb :'users/show'
     else
+      flash[:message] = "Please Log In To Continue"
       redirect '/login'
     end
   end
@@ -35,9 +39,11 @@ class UsersController < ApplicationController
         @user = User.create(params)
         session[:user_id] = @user.id
       else
+        flash[:message] = "A User Already Exists With That Name"
         redirect'/signup'
       end
     else
+      flash[:message] = "All Fields are Required"
       redirect '/signup'
     end
     redirect '/firearms'
@@ -50,6 +56,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect '/firearms'
     else
+      flash[:message] = "Incorrect Username or Password"
       redirect '/login'
     end
   end
