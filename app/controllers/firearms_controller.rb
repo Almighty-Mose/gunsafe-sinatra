@@ -53,6 +53,9 @@ class FirearmsController < ApplicationController
     @firearm = Firearm.find_by_id(params[:id])
     if logged_in? && @firearm.user_id == session[:user_id]
       erb :"/firearms/show"
+    elsif logged_in? && @firearm.user_id != session[:user_id]
+      flash[:message] = "You Do Not Have Permission to View This Firearm"
+      redirect '/firearms'
     else
       flash[:message] = "Please Log In To Continue"
       redirect '/login'
