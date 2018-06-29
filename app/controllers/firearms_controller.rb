@@ -10,7 +10,7 @@ class FirearmsController < ApplicationController
       if @user.firearms.count == 0
         redirect 'firearms/new'
       else
-        @firearms = @user.firearms.all
+        @firearms = @user.firearms
         erb :"/firearms/index"
       end
     else
@@ -33,8 +33,7 @@ class FirearmsController < ApplicationController
   #Instantiates new Firearm object from params, clicking "Add Another" button in form reloads empty "new" form
   post "/firearms" do
     if !params[:firearm][:make].empty? && !params[:firearm][:model].empty?
-      @firearm = Firearm.new(params[:firearm])
-      @firearm.user_id = current_user.id
+      @firearm = current_user.firearms.build(params[:firearm])
       @firearm.save
       flash[:message] = "Firearm Successfully Added"
     else
@@ -76,20 +75,25 @@ class FirearmsController < ApplicationController
   # PATCH: /firearms/5
   patch "/firearms/:id" do
     @firearm = Firearm.find_by_id(params[:id])
-    if !params[:firearm][:make].empty? && !params[:firearm][:model].empty?
-      @firearm.update(params[:firearm])
+    if logged_in? && current_user == @firearm.user
+      if !params[:firearm][:make].empty? && !params[:firearm][:model].empty?
+        @firearm.update(params[:firearm])
+      else
+        flash[:message] = "Make and Model Are Required"
+        redirect "/firearms/#{@firearm.id}/edit"
+      end
+      flash[:message] = "Firearm Updated"
+      redirect "/firearms/#{@firearm.id}"
     else
-      flash[:message] = "Make and Model Are Required"
-      redirect "/firearms/#{@firearm.id}/edit"
+      flash[:message] = "You do not have permission to edit this firearm"
+      redirect "/firearms"
     end
-    flash[:message] = "Firearm Updated"
-    redirect "/firearms/#{@firearm.id}"
   end
 
   # DELETE: /firearms/5/delete
   delete "/firearms/:id/delete" do
     @firearm = Firearm.find_by_id(params[:id])
-    if logged_in? && current_user.id == @firearm.user_id
+    if logged_in? && current_user == @firearm.user
       @firearm.delete
       flash[:message] = "Firearm Deleted"
       redirect '/firearms'
